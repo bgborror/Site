@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTB3D Art - Custom 3D Products & Inspiration</title>
+    <style>
+        /* --- Color Palette & Base Styles --- */
+        :root {
+            --primary: #4eb5d6; /* Based on the BTB3D Logo */
+            --primary-dark: #2a7c96;
+            --bg-dark: #0a0e14;
+            --bg-card: #151e2b;
+            --text-main: #f0f4f8;
+            --text-muted: #9ba4b5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        /* --- Navigation --- */
+        header {
+            background-color: rgba(10, 14, 20, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1f2d3d;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo img {
+            height: 50px;
+            vertical-align: middle;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 150px 20px 80px;
+            text-align: center;
+            background: radial-gradient(circle at center, #152233 0%, var(--bg-dark) 70%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            color: var(--text-muted);
+        }
+
+        /* --- Section Defaults --- */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary-dark);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* --- Portfolio Gallery --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            border: 1px solid #1f2d3d;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item .desc {
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* --- Contact Section --- */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #1f2d3d;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .social-links {
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            border: 1px solid var(--primary);
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        /* Forms */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: var(--text-muted);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-dark);
+            border: 1px solid #2a3b4c;
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3ba4c5;
+        }
+
+        /* --- Footer & Privacy --- */
+        footer {
+            background-color: #070a0e;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #1f2d3d;
+            margin-top: 40px;
+        }
+
+        .privacy-policy {
+            max-width: 800px;
+            margin: 40px auto 0 auto;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding: 20px;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+        }
+        
+        .privacy-policy h3 {
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#home">
+                    <img src="images/BTB3D Logo.jpg" alt="BTB3D Art Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#portfolio">Inspiration Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Bring Your Brand to Life</h1>
+        <p>Explore custom 3D printed products, engraved business materials, and unique personalized art. We don't just sell items; we partner with business owners to create memorable, tactile experiences. Browse our past work below for inspiration for your next project.</p>
+        <a href="#portfolio" style="background-color: var(--primary); color: #000; padding: 12px 25px; border-radius: 4px; font-weight: bold; display: inline-block; margin-top: 20px;">View Our Work</a>
+    </section>
+
+    <section id="portfolio">
+        <div class="section-header">
+            <h2>Inspiration Gallery</h2>
+            <p>From custom restaurant menus to professional trade tools, see what we can build for you.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/20260430_220832.jpg" alt="Custom Drink Menu and Koozies">
+                <div class="desc">Restaurant & Bar: Custom Menus & Koozies</div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/20260527_061838.jpg" alt="Custom Business Pens">
+                <div class="desc">Corporate Identity: Branded Pens</div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/20260601_171515.jpg" alt="Plumbing Tag">
+                <div class="desc">Trade Supplies: Durable Utility Tags</div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/20260521_221623.jpg" alt="Custom Challenge Coin">
+                <div class="desc">Commemorative: Custom Challenge Coins</div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/20260525_084851.jpg" alt="Million Dollar Novelty Bills">
+                <div class="desc">Promotional: Novelty Branded Bills</div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/20260513_074621.jpg" alt="Naval Air Station Poster">
+                <div class="desc">Historical & Educational Signage</div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/20260513_074550.jpg" alt="Chesapeake Bay Fishes Poster">
+                <div class="desc">Custom Engraved Natural History Posters</div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/20260523_164234.jpg" alt="Maryland Bird and Crab Stained Glass">
+                <div class="desc">Local Pride: Stained Glass Art Pieces</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-header">
+            <h2>Start Your Custom Project</h2>
+            <p>Ready to bring your idea to reality? Reach out to discuss concepts, materials, and quotes.</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p>We are ready to take your calls and texts to get your custom order started.</p>
+                <p><strong>Phone (Call or Text):</strong> <br><a href="tel:240-317-9426">240-317-9426</a></p>
+                <p><strong>Email:</strong> <br><a href="mailto:info@btb3d.art">info@btb3d.art</a></p>
+                
+                <div class="social-links">
+                    <h3>Follow Our Work</h3>
+                    <a href="https://www.youtube.com/@BTB3DART" target="_blank">YouTube</a>
+                    <a href="https://www.tiktok.com/@btb.3d" target="_blank">TikTok</a>
+                    <a href="https://www.facebook.com/profile.php?id=61586619470824" target="_blank">Facebook</a>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Tell Us What You Need</h3>
+                <form action="mailto:info@btb3d.art" method="post" enctype="text/plain">
+                    <label for="name">Name / Business Name:</label>
+                    <input type="text" id="name" name="Name" required>
+
+                    <label for="contact-method">Preferred Contact (Phone/Email):</label>
+                    <input type="text" id="contact-method" name="Contact_Info" required>
+
+                    <label for="details">Project Details & Inspiration:</label>
+                    <textarea id="details" name="Project_Details" rows="5" required></textarea>
+
+                    <button type="submit">Email Your Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 BTB3D Art. All rights reserved.</p>
+        
+        <div class="privacy-policy">
+            <h3>Standard Privacy Policy</h3>
+            <p><strong>Information Collection:</strong> We collect personal information (such as name, email address, and phone number) only when you voluntarily provide it through our contact forms or direct communications.</p>
+            <p><strong>Use of Information:</strong> Your information is used strictly to fulfill your requests for custom projects, answer inquiries, and provide customer service. We do not sell, trade, or rent your personal identification information to others.</p>
+            <p><strong>Data Protection:</strong> We adopt appropriate data collection, storage, and processing practices to protect against unauthorized access or disclosure of your personal information.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
