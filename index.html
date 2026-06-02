@@ -132,13 +132,30 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
             border: 1px solid #1f2d3d;
+            cursor: pointer;
+            position: relative;
         }
 
         .gallery-item:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
+        }
+
+        /* Overlay Hint on Hover */
+        .gallery-item::after {
+            content: "Click to View Gallery";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 250px;
+            background: rgba(78, 181, 214, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: #fff;
+            opacity: 0; transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
         }
 
         .gallery-item img {
@@ -152,6 +169,67 @@
             padding: 15px;
             text-align: center;
             font-weight: bold;
+            background-color: var(--bg-card);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- Modal Lightbox Styles --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow-y: auto;
+            background-color: rgba(10, 14, 20, 0.95);
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-container {
+            max-width: 1000px;
+            margin: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 20px; right: 30px;
+            color: var(--text-main);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 2100;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .modal-title {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .modal-grid img {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid #1f2d3d;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        .modal-grid img:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
         }
 
         /* --- Contact Section --- */
@@ -294,48 +372,59 @@
     <section id="portfolio">
         <div class="section-header">
             <h2>Inspiration Gallery</h2>
-            <p>From custom restaurant menus to professional trade tools, see what we can build for you.</p>
+            <p>From custom restaurant menus to professional trade tools, see what we can build for you. Click any item to view its gallery.</p>
         </div>
 
         <div class="gallery-grid">
-            <div class="gallery-item">
+            <div class="gallery-item" data-category="menus">
                 <img src="images/20260430_220832.jpg" alt="Custom Drink Menu and Koozies">
                 <div class="desc">Restaurant & Bar: Custom Menus & Koozies</div>
             </div>
-            <div class="gallery-item">
-                <img src="images/20260527_061838.jpg" alt="Custom Business Pens">
+            <div class="gallery-item" data-category="pens">
+                <img src="images/20260527_061838.jpg" alt="Custom Business Stationery">
                 <div class="desc">Corporate Identity: Branded Pens</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-category="tags">
                 <img src="images/20260601_171515.jpg" alt="Plumbing Tag">
                 <div class="desc">Trade Supplies: Durable Utility Tags</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-category="coins">
                 <img src="images/20260521_221623.jpg" alt="Custom Challenge Coin">
                 <div class="desc">Commemorative: Custom Challenge Coins</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-category="awards">
                 <img src="images/20260525_084851.jpg" alt="Million Dollar Novelty Bills">
-                <div class="desc">Commemorative Milestone Achievements: Acrylic Bills</div>
+                <div class="desc">Commemorative Milestone Achievements: Awards</div>
             </div>
-            <div class="gallery-item">
-                <img src="images/20260513_074621.jpg" alt="Naval Air Station Poster">
-                <div class="desc">Historical & Educational Signage</div>
-            </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-category="posters">
                 <img src="images/20260513_074550.jpg" alt="Chesapeake Bay Fishes Poster">
                 <div class="desc">Custom Engraved Natural History Posters</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-category="art">
                 <img src="images/20260523_164234.jpg" alt="Maryland Bird and Crab Stained Glass">
                 <div class="desc">Local Pride: Stained Glass Art Pieces</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-category="tools">
                 <img src="images/Crab Culler.jpg" alt="Customizable Crab Culler/Measuring Tool">
                 <div class="desc">Custom Logos on ABS Products</div>
             </div>
+            <div class="gallery-item" data-category="apparel">
+                <img src="images/Hats.jpg" alt="Print on ANYTHING!">
+                <div class="desc">Put your creation on hats, sunglass holders, golf balls, cups, coolers.... you name it!</div>
+            </div>
         </div>
     </section>
+
+    <!-- Dynamic Popup Lightbox Modal -->
+    <div id="gallery-modal" class="modal">
+        <span class="close-btn" onclick="closeGallery()">&times;</span>
+        <div class="modal-container">
+            <div id="modal-title" class="modal-title">Category Title</div>
+            <div id="modal-grid" class="modal-grid">
+                <!-- JavaScript will dynamically inject image items here -->
+            </div>
+        </div>
+    </div>
 
     <section id="contact">
         <div class="section-header">
@@ -387,5 +476,94 @@
         </div>
     </footer>
 
+    <!-- Lightbox Functional Script -->
+    <script>
+        // --- CATEGORY DATABASE ---
+        const categoryDatabase = {
+            menus: {
+                title: "Restaurant & Bar: Custom Menus & Koozies",
+                images: ["images/20260430_220832.jpg"]
+            },
+            pens: {
+                title: "Corporate Identity: Branded Pens",
+                images: ["images/20260527_061838.jpg"]
+            },
+            tags: {
+                title: "Trade Supplies: Durable Utility Tags",
+                images: ["images/20260601_171515.jpg"]
+            },
+            coins: {
+                title: "Commemorative: Custom Challenge Coins",
+                images: ["images/20260521_221623.jpg"]
+            },
+            awards: {
+                title: "Commemorative Milestone Achievements: Awards",
+                images: ["images/20260525_084851.jpg"]
+            },
+            posters: {
+                title: "Custom Engraved Natural History Posters",
+                images: ["images/20260513_074550.jpg"]
+            },
+            art: {
+                title: "Local Pride: Stained Glass Art Pieces",
+                images: ["images/20260523_164234.jpg"]
+            },
+            tools: {
+                title: "Custom Logos on ABS Products",
+                images: ["images/Crab Culler.jpg"]
+            },
+            apparel: {
+                title: "Print on ANYTHING!",
+                images: ["images/Hats.jpg"]
+            }
+        };
+
+        // --- MODAL ENGINE FUNCTIONS ---
+        const modal = document.getElementById("gallery-modal");
+        const modalTitle = document.getElementById("modal-title");
+        const modalGrid = document.getElementById("modal-grid");
+
+        // Attach click triggers to all items in the primary gallery
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const categoryKey = item.getAttribute('data-category');
+                openGallery(categoryKey);
+            });
+        });
+
+        function openGallery(categoryKey) {
+            const data = categoryDatabase[categoryKey];
+            if (!data) return;
+
+            // Update title text
+            modalTitle.innerText = data.title;
+            
+            // Empty grid cache out and populate fresh markup strings
+            modalGrid.innerHTML = "";
+            data.images.forEach(imgSrc => {
+                const imgTag = document.createElement("img");
+                imgTag.src = imgSrc;
+                imgTag.alt = data.title;
+                modalGrid.appendChild(imgTag);
+            });
+
+            // Turn display visibility on and lock screen body scrolling
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeGallery() {
+            // Shut layout frame and restore body node scroll mechanics
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Close modal automatically if user clicks on the dark background space outside container
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeGallery();
+            }
+        });
+    </script>
 </body>
 </html>
